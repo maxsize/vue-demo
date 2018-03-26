@@ -1,4 +1,4 @@
-'use strict'
+                                                                                                                        'use strict'
 const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
@@ -109,13 +109,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
 
     // copy custom static assets
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, '../static'),
-        to: config.build.assetsSubDirectory,
-        ignore: ['.*']
-      }
-    ])
+    
   ]
 })
 
