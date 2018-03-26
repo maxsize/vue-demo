@@ -28,6 +28,10 @@ import Side from '../components/Side'
 
 export default {
   name: 'MainBody',
+  mounted: function () {
+    if (!this.$store.state.user.authorized)
+      this.$router.push({name:'home'})
+  },
   components: {
     ParameterComp,
     Side

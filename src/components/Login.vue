@@ -1,17 +1,24 @@
 <template>
   <div class="loginContainer">
-    <div>
+    <div v-if="!this.$store.state.user.authorized">
       <div class="loginTab">
         <div class="tab" :style="getStyle(0)" @click="selectTab(0)">Login</div>
         <div class="tab" :style="getStyle(1)" @click="selectTab(1)">Register</div>
       </div>
-      <div class="loginPanel">
+      <div class="loginPanel" v-if="showLogin">
         <form>
           <p>{{error}}</p>
           <input required type="text" id="username" placeholder="Input your name here" v-model="username">
           <p><button @click="login" type="button">Login</button></p>
         </form>
       </div>
+      <div class="loginPanel" v-if="showRegister">
+        <h1>TODO</h1>
+      </div>
+    </div>
+    <div v-else>
+      <p>Welcome back {{this.$store.state.user.username}}</p>
+      <router-link to="/body" tag="button">Take me in</router-link>
     </div>
   </div>
 </template>
@@ -28,6 +35,12 @@ export default {
     }
   },
   computed: {
+    showLogin () {
+      return this.activeIndex === 0
+    },
+    showRegister () {
+      return this.activeIndex === 1
+    }
   },
   methods: {
     getStyle(index) {

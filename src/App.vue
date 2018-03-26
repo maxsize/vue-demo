@@ -3,7 +3,10 @@
     <div class="main-header">
       <span class="golden">个人简介</span>
       <div class="header-right">
-        <div v-if="this.$store.state.user.authorized">欢迎你{{this.$store.state.user.username}}</div>
+        <div v-if="this.$store.state.user.authorized">
+          <span>欢迎你{{this.$store.state.user.username}}</span>
+          <a href="" @click="handleLogout">登出</a>
+        </div>
         <div v-else><a href="#">登陆</a></div>
       </div>
     </div>
@@ -12,11 +15,18 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld'
+import { MUT_LOGOUT, MUT_LOAD_CACHE } from './store/index'
 
 export default {
   name: 'App',
-  components: {
+  beforeMount: function () {
+    this.$store.commit(MUT_LOAD_CACHE)
+  },
+  methods: {
+    handleLogout (e) {
+      this.$store.commit(MUT_LOGOUT, this.$router)
+      e.preventDefault()
+    }
   }
 }
 </script>

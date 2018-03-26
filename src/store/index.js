@@ -7,6 +7,8 @@ export const MUT_CHANGE_VALUE = 'changeValue'
 export const MUT_ADD_VALUE = 'addValue'
 export const MUT_CHANGE_TYPE = 'changeType'
 export const MUT_LOGIN = 'login'
+export const MUT_LOGOUT = 'logout'
+export const MUT_LOAD_CACHE = 'loadCache'
 
 Vue.use(Vuex)
 
@@ -62,10 +64,24 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
+    [MUT_LOAD_CACHE] (state) {
+      const userStr = localStorage.getItem("user")
+      if (userStr)
+      {
+        state.user = JSON.parse(userStr)
+      }
+    },
     [MUT_LOGIN] (state, payload) {
       state.user.authorized = true
       state.user.username = payload.username
+      localStorage.setItem('user', JSON.stringify(state.user));
       payload.router.push({name:'main'})
+    },
+    [MUT_LOGOUT] (state, router) {
+      state.user.authorized = false
+      state.user.username = ''
+      localStorage.removeItem('user')
+      router.push({name:'home'})
     },
     [MUT_SELECT](state, index) {
       state.selectedIndex = index
