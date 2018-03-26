@@ -1,11 +1,12 @@
 <template>
-    <div :style="{display:'inline-block'}">
-        <input type='text' :value="getValue" :name="name" @change="handleChange"/>
-    </div>
+  <div :style="{display:'inline-block'}">
+    <input type='text' :value="getValue" :name="name" @change="handleChange"/>
+    <span v-if="isArray" @click="handleAdd">+</span>
+  </div>
 </template>
 
 <script>
-import { MUT_CHANGE_VALUE } from '../store/index'
+import { MUT_CHANGE_VALUE, MUT_ADD_VALUE } from '../store/index'
 
 export default {
   name: 'FieldInput',
@@ -21,11 +22,23 @@ export default {
           newValue: e.target.value
         }
       )
+    },
+    handleAdd: function (e) {
+      this.$store.commit(
+        MUT_ADD_VALUE,
+        {
+          data: this.info,
+          index: this.name
+        }
+      )
     }
   },
   computed: {
     getValue: function () {
       return this.info ? this.info[this.name] : ''
+    },
+    isArray: function () {
+      return !isNaN(this.name)
     }
   }
 }
