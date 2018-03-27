@@ -4,6 +4,7 @@
       <div class="loginTab">
         <div class="tab" :style="getStyle(0)" @click="selectTab(0)">Login</div>
         <div class="tab" :style="getStyle(1)" @click="selectTab(1)">Register</div>
+        <div class="tab" :style="getStyle(2)" @click="selectTab(2)">Note</div>
       </div>
       <div class="loginPanel" v-if="showLogin">
         <form>
@@ -14,6 +15,10 @@
       </div>
       <div class="loginPanel" v-if="showRegister">
         <h1>TODO</h1>
+      </div>
+      <div class="loginPanel" v-if="showNote">
+        <p>Awesome note</p>
+        <button @click="gotoNote">Take me there</button>
       </div>
     </div>
     <div v-else>
@@ -40,6 +45,9 @@ export default {
     },
     showRegister () {
       return this.activeIndex === 1
+    },
+    showNote () {
+      return this.activeIndex === 2
     }
   },
   methods: {
@@ -57,6 +65,9 @@ export default {
         return true;
       }
       this.error = '* Name is required.'
+    },
+    gotoNote () {
+      this.$router.push({name: 'notes'});
     }
   }
 }
