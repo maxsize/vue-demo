@@ -10,6 +10,9 @@ export const MUT_LOGIN = 'login'
 export const MUT_LOGOUT = 'logout'
 export const MUT_LOAD_CACHE = 'loadCache'
 
+export const MUT_CHANGE_NOTE = 'changeNote'
+export const MUT_ADD_NOTE = 'addNote'
+
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
@@ -61,9 +64,26 @@ export const store = new Vuex.Store({
     user: {
       authorized: false,
       username: 'Jon Doe'
-    }
+    },
+    notes: [
+      {
+        content: 'test',
+        theme: '#008099'
+      },
+      {
+        content: 'test',
+        theme: '#008099'
+      }
+    ]
   },
   mutations: {
+    [MUT_CHANGE_NOTE] (state, payload) {
+      const { data, value } = payload
+      Vue.set(data, 'content', value)
+    },
+    [MUT_ADD_NOTE] (state) {
+      Vue.set(state.notes, state.notes.length, {content: 'new note', theme: '#008099'})
+    },
     [MUT_LOAD_CACHE] (state) {
       const userStr = localStorage.getItem("user")
       if (userStr)

@@ -6,6 +6,7 @@ import VueRouter from "vue-router"
 import * as Store from './store/index.js'
 import Login from './components/Login'
 import MainBody from './components/MainBody'
+import Notes from './components/Notes'
 
 Vue.config.productionTip = false
 
@@ -13,8 +14,9 @@ Vue.use(VueRouter)
 var store = Store.store
 
 const routes = [
-  { path:'', name:'home', component:Login },
-  { path:'/body', name:'main', component:MainBody }
+  { path: '', name:'home', component:Login },
+  { path: '/body', name:'main', component:MainBody },
+  { path: '/notes', name: 'notes', component: Notes }
 ]
 const router = new VueRouter(
   {
