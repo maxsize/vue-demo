@@ -3,7 +3,7 @@
     <div class="noteHead"></div>
     <div class="noteBody">
       <div class="noteContent">
-        <textarea v-if="isEdit" ref="ta" v-model="content" @blur="handleBlur" autofocus></textarea>
+        <textarea v-if="isEdit" v-model="content" @blur="handleBlur" v-focus></textarea>
         <pre v-else @click="handleEdit">{{this.data.content}}</pre>
       </div>
     </div>
@@ -38,8 +38,16 @@ export default {
       this.isEdit = false
     }
   },
-  updated: function () {
-    if (this.$refs.ta) this.$refs.ta.focus()
+  // updated: function () {
+  //   if (this.$refs.ta) this.$refs.ta.focus()
+  // },
+  directives: {
+    focus: {
+      inserted: function (el) {
+        el.focus();
+        // el.select();
+      }
+    }
   }
 }
 </script>
