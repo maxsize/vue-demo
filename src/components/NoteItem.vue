@@ -1,6 +1,6 @@
 <template>
   <div class="note">
-    <div class="noteHead"></div>
+    <div class="noteHead" :style="theme"></div>
     <div class="noteBody">
       <div class="noteContent">
         <textarea v-if="isEdit" v-model="content" @blur="handleBlur" v-focus></textarea>
@@ -28,6 +28,9 @@ export default {
       set: function (value) {
         this.$store.commit(MUT_CHANGE_NOTE, {data: this.data, value: value})
       }
+    },
+    theme: function () {
+      return { backgroundColor: this.data.theme }
     }
   },
   methods: {
@@ -86,5 +89,10 @@ export default {
 }
 pre {
   margin: 0;
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 </style>
