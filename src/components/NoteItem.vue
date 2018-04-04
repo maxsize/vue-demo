@@ -1,20 +1,26 @@
 <template>
   <div class="note">
-    <div class="noteHead" :style="theme"></div>
-    <div class="noteBody">
+    <!-- <div class="noteHead"></div> -->
+    <theme-selector class="noteHead" @delNote="handleDel" @changeTheme="handleChangeTheme"/>
+    <div class="noteBody" :style="theme">
       <div class="noteContent">
         <textarea v-if="isEdit" v-model="content" @blur="handleBlur" v-focus></textarea>
-        <pre v-else @click="handleEdit">{{this.data.content}}</pre>
+        <pre v-else @click="handleEdit">{{this.item.content}}</pre>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { MUT_CHANGE_NOTE } from "../store/index";
+import { MUT_CHANGE_NOTE, MUT_CHANGE_THEME, MUT_DEL_NOTE } from "../store/index";
+import ThemeSelector from "./ThemeSelector";
+
 export default {
   name: 'NoteItem',
-  props: ['data'],
+  components: {
+    ThemeSelector
+  },
+  props: ['item'],
   data: function () {
     return {
       isEdit: false
@@ -23,27 +29,30 @@ export default {
   computed: {
     content: {
       get: function () {
-        return this.data.content
+        return this.item.content
       },
       set: function (value) {
-        this.$store.commit(MUT_CHANGE_NOTE, {data: this.data, value: value})
       }
     },
     theme: function () {
-      return { backgroundColor: this.data.theme }
+      return { backgroundColor: this.item.theme }
     }
   },
   methods: {
     handleEdit () {
       this.isEdit = true
     },
-    handleBlur () {
+    handleBlur (e) {
+      this.$store.commit(MUT_CHANGE_NOTE, {data: this.item, value: e.target.value})
       this.isEdit = false
+    },
+    handleChangeTheme (color) {
+      this.$store.commit(MUT_CHANGE_THEME, {item: this.item, theme: color})
+    },
+    handleDel () {
+      this.$store.commit(MUT_DEL_NOTE, this.item)
     }
   },
-  // updated: function () {
-  //   if (this.$refs.ta) this.$refs.ta.focus()
-  // },
   directives: {
     focus: {
       inserted: function (el) {

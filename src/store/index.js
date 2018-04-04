@@ -12,6 +12,8 @@ export const MUT_LOAD_CACHE = 'loadCache'
 
 export const MUT_CHANGE_NOTE = 'changeNote'
 export const MUT_ADD_NOTE = 'addNote'
+export const MUT_DEL_NOTE = 'delNote'
+export const MUT_CHANGE_THEME = 'changeTheme'
 
 Vue.use(Vuex)
 
@@ -68,13 +70,14 @@ export const store = new Vuex.Store({
     notes: [
       {
         content: 'test',
-        theme: '#008099'
+        theme: '#ffda77'
       },
       {
         content: 'test',
-        theme: '#008099'
+        theme: '#66dc5b'
       }
-    ]
+    ],
+    themes: ['#ffda77', '#66dc5b', '#ea65cd', '#c498f5', '#78bff7', '#b6b6b6']
   },
   mutations: {
     [MUT_CHANGE_NOTE] (state, payload) {
@@ -83,6 +86,15 @@ export const store = new Vuex.Store({
     },
     [MUT_ADD_NOTE] (state) {
       Vue.set(state.notes, state.notes.length, {content: 'new note', theme: '#008099'})
+    },
+    [MUT_DEL_NOTE] (state, note) {
+      const index = state.notes.indexOf(note)
+      console.log(index, note)
+      Vue.delete(state.notes, index)
+    },
+    [MUT_CHANGE_THEME] (state, payload) {
+      const { item, theme } = payload
+      Vue.set(item, 'theme', theme)
     },
     [MUT_LOAD_CACHE] (state) {
       const userStr = localStorage.getItem("user")

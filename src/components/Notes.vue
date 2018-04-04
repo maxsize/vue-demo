@@ -1,7 +1,7 @@
 <template>
   <div class="noteWrapper">
     <div class="noteContainer">
-      <note-item v-for="(data, index) in this.$store.state.notes" :key="index" :data="data"/>
+      <note-item v-for="(data, index) in this.$store.state.notes" :key="index" :item="data"/>
       <div class="staticItem"><img src="../assets/add.png" alt="Add note" @click="handleAdd"></div>
     </div>
   </div>
