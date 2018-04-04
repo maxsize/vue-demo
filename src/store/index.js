@@ -108,12 +108,14 @@ export const store = new Vuex.Store({
       state.user.username = payload.username
       localStorage.setItem('user', JSON.stringify(state.user));
       payload.router.push({name:'main'})
+      window.document.title = `Welcome ${state.user.username}`
     },
     [MUT_LOGOUT] (state, router) {
       state.user.authorized = false
       state.user.username = ''
       localStorage.removeItem('user')
       router.push({name:'home'})
+      window.document.title = `Welcome`
     },
     [MUT_SELECT](state, index) {
       state.selectedIndex = index
