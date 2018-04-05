@@ -15,6 +15,7 @@
       </div>
       <div class="loginPanel" v-if="showRegister">
         <h1>TODO</h1>
+        <button @click="handleFetch">Fetch image</button>
       </div>
       <div class="loginPanel" v-if="showNote">
         <p>Awesome note</p>
@@ -68,6 +69,35 @@ export default {
     },
     gotoNote () {
       this.$router.push({name: 'notes'});
+    },
+    handleFetch () {
+      //https://cloud.google.com/vision/images/rushmore.jpg
+      const data = {
+                      "requests":[
+                        {
+                          "image":{
+                            "source":{
+                              "imageUri":
+                                "gs://guildy/1280px-Forbidden_City_Beijing_Shenwumen_Gate.JPG"
+                            }
+                          },
+                          "features":[
+                            {
+                              "type":"LABEL_DETECTION",
+                              "maxResults":5
+                            }
+                          ]
+                        }
+                      ]
+                    }
+      const req = new Request("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCb5zP3gH-Yo6BoiGhzmZkIb2uXFzrHAwo")
+      fetch(req, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({'Content-Type': 'application/json'})
+      }).then(res => {
+        console.log(res.json())
+      }).catch(error => console.log(error))
     }
   }
 }
