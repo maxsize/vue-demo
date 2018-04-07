@@ -3,7 +3,7 @@
     <div v-if="!this.$store.state.user.authorized">
       <div class="loginTab">
         <div class="tab" :style="getStyle(0)" @click="selectTab(0)">Login</div>
-        <div class="tab" :style="getStyle(1)" @click="selectTab(1)">Register</div>
+        <div class="tab" :style="getStyle(1)" @click="selectTab(1)">Vision</div>
         <div class="tab" :style="getStyle(2)" @click="selectTab(2)">Note</div>
       </div>
       <div class="loginPanel" v-if="showLogin">
@@ -14,8 +14,8 @@
         </form>
       </div>
       <div class="loginPanel" v-if="showRegister">
-        <h1>TODO</h1>
-        <button @click="handleFetch">Fetch image</button>
+        <h2>Vision api demo</h2>
+        <router-link to="/vision" tag="button">Take me there</router-link>
       </div>
       <div class="loginPanel" v-if="showNote">
         <p>Awesome note</p>
@@ -69,35 +69,6 @@ export default {
     },
     gotoNote () {
       this.$router.push({name: 'notes'});
-    },
-    handleFetch () {
-      //https://cloud.google.com/vision/images/rushmore.jpg
-      const data = {
-                      "requests":[
-                        {
-                          "image":{
-                            "source":{
-                              "imageUri":
-                                "gs://guildy/1280px-Forbidden_City_Beijing_Shenwumen_Gate.JPG"
-                            }
-                          },
-                          "features":[
-                            {
-                              "type":"LABEL_DETECTION",
-                              "maxResults":5
-                            }
-                          ]
-                        }
-                      ]
-                    }
-      const req = new Request("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCb5zP3gH-Yo6BoiGhzmZkIb2uXFzrHAwo")
-      fetch(req, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({'Content-Type': 'application/json'})
-      }).then(res => {
-        console.log(res.json())
-      }).catch(error => console.log(error))
     }
   }
 }
