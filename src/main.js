@@ -7,7 +7,8 @@ import * as Store from './store/index.js'
 import Login from './components/Login'
 import MainBody from './components/MainBody'
 import Notes from './components/Notes'
-import VisionAPI from "./components/VisionAPI";
+import GoogleCloud from './components/GoogleCloud'
+// import VisionAPI from "./components/VisionAPI";
 
 Vue.config.productionTip = false
 
@@ -18,7 +19,8 @@ const routes = [
   { path: '', name:'home', component:Login },
   { path: '/body', name:'main', component:MainBody },
   { path: '/notes', name: 'notes', component: Notes },
-  { path: '/vision', name: 'vision', component: VisionAPI }
+  { path: '/cloud', name: 'cloud', component: GoogleCloud },
+  // { path: '/vision', name: 'vision', component: VisionAPI }
 ]
 const router = new VueRouter(
   {

@@ -1,5 +1,5 @@
 <template>
-  <div class="vision-api-container">
+  <div>
     <!-- <input type="file" name="localFile" @change="handleFile"> -->
     <div v-if="!this.loading" class="vision-api-form">
       <h2>Demostrate Google Cloud Vision API</h2>
@@ -65,17 +65,9 @@ export default {
 </script>
 
 <style>
-.vision-api-container {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  width: 100%;
-  height: 90vh;
-}
 .vision-api-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 </style>

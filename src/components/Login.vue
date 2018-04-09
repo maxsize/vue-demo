@@ -3,7 +3,7 @@
     <div v-if="!this.$store.state.user.authorized">
       <div class="loginTab">
         <div class="tab" :style="getStyle(0)" @click="selectTab(0)">Login</div>
-        <div class="tab" :style="getStyle(1)" @click="selectTab(1)">Vision</div>
+        <div class="tab" :style="getStyle(1)" @click="selectTab(1)">Cloud</div>
         <div class="tab" :style="getStyle(2)" @click="selectTab(2)">Note</div>
       </div>
       <div class="loginPanel" v-if="showLogin">
@@ -14,8 +14,8 @@
         </form>
       </div>
       <div class="loginPanel" v-if="showRegister">
-        <h2>Vision api demo</h2>
-        <router-link to="/vision" tag="button">Take me there</router-link>
+        <h2>Google Cloud</h2>
+        <router-link to="/cloud" tag="button">Take me there</router-link>
       </div>
       <div class="loginPanel" v-if="showNote">
         <p>Awesome note</p>
